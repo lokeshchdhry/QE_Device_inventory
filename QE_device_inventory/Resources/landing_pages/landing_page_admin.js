@@ -76,27 +76,27 @@ exports.landing=function(){
 		width:'50%'
 	});
 	
-	var update_device_button = Ti.UI.createButton({
-		top:280,
-		title:"Update device",
-		height:75,
-		left:0,
-		width:'50%'
-	});
+	// var update_device_button = Ti.UI.createButton({
+		// top:280,
+		// title:"Update device",
+		// height:75,
+		// left:0,
+		// width:'50%'
+	// });
 	
 	var delete_device_button = Ti.UI.createButton({
 		top:280,
 		title:"Delete device/s",
 		height:75,
-		right:0,
+		left:0,
 		width:'50%'
 	});
 	
 	var add_device_csv_but = Ti.UI.createButton({
-		top:370,
+		top:280,
 		title:"Add device/s from CSV file",
 		height:75,
-		left:0,
+		right:0,
 		width:'50%'
 	});
 	
@@ -104,7 +104,7 @@ exports.landing=function(){
 		top:370,
 		title:"Get Checked out devices",
 		height:75,
-		right:0,
+		left:0,
 		width:'50%'
 	});
 	
@@ -166,9 +166,9 @@ exports.landing=function(){
 		getalldevice.get_all_device();
 	});
 	
-	update_device_button.addEventListener('click',function(){
-		updatedevice.update_device();
-	});
+	// update_device_button.addEventListener('click',function(){
+		// updatedevice.update_device();
+	// });
 	
 	delete_device_button.addEventListener('click',function(){
 		deletedevice.delete_main_pg();
@@ -206,7 +206,7 @@ exports.landing=function(){
 	main_win.add(get_android_device_button);
 	main_win.add(get_ios_device_button);
 	main_win.add(get_windows_device_button);
-	main_win.add(update_device_button);
+	// main_win.add(update_device_button);
 	main_win.add(get_all_device_button);
 	main_win.add(add_device_csv_but);
 	main_win.add(delete_device_button);
