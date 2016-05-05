@@ -145,6 +145,12 @@ exports.device_checkin=function(){
 		var xhr = Ti.Network.createHTTPClient({
 		    onload: function onLoad() {
 		        Ti.API.info("Loaded: " + this.status + ": " + this.responseText);
+		        if(this.status=='204'){
+		        	toast.show_toast("Device "+name+" checked in successfully.",Ti.UI.NOTIFICATION_DURATION_SHORT);
+		        }
+		        else{
+		        	alert('Please check for Status: '+this.status);
+		        }
 		    },
 		    onerror: function onError() {
 		        alert("Errored: " + this.status + ": " + this.responseText);

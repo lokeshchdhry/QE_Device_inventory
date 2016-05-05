@@ -2,7 +2,8 @@ var toast = require('utils/toast');
 var links_keys = require('utils/links_keys');
 var update_device = require('devicelogic/update_device');
 var deviceinfo = require('devicelogic/device_info');
-//var search_bar = require('utils/search_bar');
+var editdevice = require('devicelogic/update_device');
+var deletedevice = require('devicelogic/delete_device');
 
 exports.get_all_device = function(){
 	var win = Ti.UI.createWindow({title:"All Devices",backgroundImage:'main_bg.jpg'});
@@ -69,7 +70,50 @@ exports.get_all_device = function(){
 	            type: 'Ti.UI.ImageView', 
 	            bindId: 'pic',           
 	            properties: {          
+	                top:30,left:'70%',width:20,height:20
+	            }
+	        },
+	        {                            
+	            type: 'Ti.UI.ImageView', 
+	            bindId: 'editpic',           
+	            properties: {          
 	                top:30,left:'80%',width:20,height:20
+	            },
+	            //Event listener for edit 
+	            events: {
+	                longclick: function (e) {
+	                    var item = listSection.getItemAt(e.itemIndex);
+	                    var b = item.name.text;
+						var device_name = b.substring(9);
+	                    editdevice.update_device(device_name);
+	                }
+	            }
+	        },
+	        {                            
+	            type: 'Ti.UI.ImageView', 
+	            bindId: 'deletepic',           
+	            properties: {          
+	                top:30,left:'90%',width:20,height:20
+	            },
+	            //Event listener for edit 
+	            events: {
+	                longclick: function (e) {
+	                    var item = listSection.getItemAt(e.itemIndex);
+	                    var b = item.name.text;
+						var device_name = b.substring(9);
+						var dialog = Ti.UI.createAlertDialog({
+					        title : 'Are you sure want to delete '+device_name+' from DB?',
+					        buttonNames : ['Yes','No']
+					    });
+					    dialog.addEventListener('click', function(e){
+					        if(e.index == 0){
+					        	//Call the required delete device function & pass the device name as argument to the function
+					        	deletedevice.deletedevice(device_name);
+					            listSection.deleteItemsAt(e.itemIndex,1);
+					        }
+					    });
+					    dialog.show();
+	                }
 	            }
 	        }
 	    ]
@@ -90,6 +134,8 @@ exports.get_all_device = function(){
 	var listDataSet = [];
 	
 	var platform_imageview = Ti.UI.createImageView({});
+	var edit_imageview = Ti.UI.createImageView({backgroundImage:'/images/edit.png'});
+	var delete_imageview = Ti.UI.createImageView({backgroundImage:'/images/delete.png'});
 	var platform_lbl = Ti.UI.createLabel({});
 	var os_ver_lbl = Ti.UI.createLabel({});
 	var model_lbl = Ti.UI.createLabel({});
@@ -125,6 +171,8 @@ exports.get_all_device = function(){
 					model: {text: model_lbl.text,height:45}, 
 					name: {text: name_lbl.text,height:45}, 
 					pic: {image: platform_imageview.backgroundImage},
+					editpic: {image: edit_imageview.backgroundImage},
+					deletepic: {image: delete_imageview.backgroundImage},
 					properties:{title:devices.name,itemID:devices.name,searchableText:devices.platform+devices.os_ver+devices.model+devices.name,height:140}
 					});
 				

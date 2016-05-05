@@ -61,7 +61,7 @@
         <target device="mobileweb">true</target>
         <target device="windows">false</target>
     </deployment-targets>
-    <sdk-version>5.3.0.v20160421080259</sdk-version>
+    <sdk-version>5.3.0.v20160503133640</sdk-version>
     <property name="appc-app-id" type="string">56e63fd8ddc552d963151b80</property>
     <property name="acs-authbase-url-development" type="string">https://secure-identity.cloud.appcelerator.com</property>
     <property name="acs-base-url-development" type="string">https://api.cloud.appcelerator.com</property>

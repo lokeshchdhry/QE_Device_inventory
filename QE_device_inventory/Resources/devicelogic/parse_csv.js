@@ -45,6 +45,7 @@ exports.parsecsv=function(){
 			        log_tbl_view.data=tabledata;
 			        //toast.show_toast(count+' devices added to DB',Ti.UI.NOTIFICATION_DURATION_SHORT);
 			        Ti.API.info(count+' devices added to DB');
+			        toast.show_toast(count+' device/s added.',Ti.UI.NOTIFICATION_DURATION_SHORT);
 			    },
 			    onerror: function onError() {
 			        alert("Errored: " + this.status + ": " + this.responseText); 
@@ -172,7 +173,7 @@ exports.parsecsv=function(){
 	parse_button.addEventListener('click',function(){
 		if (Ti.Filesystem.hasStoragePermissions()) {
 			       Ti.API.info("App has file permissions");
-			       //Clearing the log tableview when parse button is pressed.
+			       //Clearing the log table view when parse button is pressed.
 			       tabledata=[];
 			       log_tbl_view.data=tabledata;
 				   download();
