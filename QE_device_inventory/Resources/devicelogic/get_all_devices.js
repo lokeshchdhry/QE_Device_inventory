@@ -141,63 +141,65 @@ exports.get_all_device = function(){
 	var model_lbl = Ti.UI.createLabel({});
 	var name_lbl = Ti.UI.createLabel({});
 	
-	var xhr = Ti.Network.createHTTPClient({
-	    onload: function onLoad() {
-	        Ti.API.info("Loaded: " + this.status + ": " + this.responseText);
-	  
-	        var json_resp = this.responseText;
-	        var JSONdata = JSON.parse(json_resp);
-	        Ti.API.info("Device Count: "+JSONdata.devices.length);
-	        for (var i=0;i<JSONdata.devices.length;i++){
-	        	var devices = JSONdata.devices[i];
-	        	
-	        	if(devices.platform.toLowerCase()=="android"){
-	        		platform_imageview.backgroundImage='/images/android.png';
-	        	}
-	        	else if(devices.platform.toLowerCase()=="windows"){
-	        		platform_imageview.backgroundImage='/images/windows.png';
-	        	}
-	        	else{
-	        		platform_imageview.backgroundImage='/images/apple.png';
-	        	}
-	        	
-	        	platform_lbl.text = "PLATFORM:    "+devices.platform;
-	        	os_ver_lbl.text = "OS VER:    "+devices.os_ver;
-	        	model_lbl.text = "MODEL:    "+devices.model;
-	        	name_lbl.text = "NAME:    "+devices.name;
-
-				listDataSet.push({ platform: {text: platform_lbl.text,height:50}, 
-					os_ver: {text: os_ver_lbl.text,height:46}, 
-					model: {text: model_lbl.text,height:45}, 
-					name: {text: name_lbl.text,height:45}, 
-					pic: {image: platform_imageview.backgroundImage},
-					editpic: {image: edit_imageview.backgroundImage},
-					deletepic: {image: delete_imageview.backgroundImage},
-					properties:{title:devices.name,itemID:devices.name,searchableText:devices.platform+devices.os_ver+devices.model+devices.name,height:140}
-					});
-				
-				listSection.setItems(listDataSet);
-				sections.push(listSection);
-				listView.setSections(sections);
-	        	
-	        	//var edit_imageview = Ti.UI.createImageView({top:30,left:'90%',width:20,height:20,backgroundImage:'/images/edit.png'});
-	        	    		        	
-	            //Change the header of the table view	
-	        	listSection.headerTitle=JSONdata.devices.length+" device/s found";	
-	        }   
-	        // get_device_tbl_view.data=tabledata;
-	        toast.show_toast("Found "+JSONdata.devices.length+" device/s.",Ti.UI.NOTIFICATION_DURATION_SHORT);
-	        
-	    },
-	    onerror: function onError() {
-	        alert("Errored: " + this.status + ": " + this.responseText);
-	    }
-	});
+	function getdata(){
+		var xhr = Ti.Network.createHTTPClient({
+		    onload: function onLoad() {
+		        Ti.API.info("Loaded: " + this.status + ": " + this.responseText);
+		  
+		        var json_resp = this.responseText;
+		        var JSONdata = JSON.parse(json_resp);
+		        Ti.API.info("Device Count: "+JSONdata.devices.length);
+		        for (var i=0;i<JSONdata.devices.length;i++){
+		        	var devices = JSONdata.devices[i];
+		        	
+		        	if(devices.platform.toLowerCase()=="android"){
+		        		platform_imageview.backgroundImage='/images/android.png';
+		        	}
+		        	else if(devices.platform.toLowerCase()=="windows"){
+		        		platform_imageview.backgroundImage='/images/windows.png';
+		        	}
+		        	else{
+		        		platform_imageview.backgroundImage='/images/apple.png';
+		        	}
+		        	
+		        	platform_lbl.text = "PLATFORM:    "+devices.platform;
+		        	os_ver_lbl.text = "OS VER:    "+devices.os_ver;
+		        	model_lbl.text = "MODEL:    "+devices.model;
+		        	name_lbl.text = "NAME:    "+devices.name;
 	
-	xhr.open("GET",links_keys.get_all_url);
-	var authstr = 'Basic ' + Ti.Utils.base64encode(links_keys.prod_key);
-	xhr.setRequestHeader("Authorization", authstr);
-	xhr.send();
+					listDataSet.push({ platform: {text: platform_lbl.text,height:50}, 
+						os_ver: {text: os_ver_lbl.text,height:46}, 
+						model: {text: model_lbl.text,height:45}, 
+						name: {text: name_lbl.text,height:45}, 
+						pic: {image: platform_imageview.backgroundImage},
+						editpic: {image: edit_imageview.backgroundImage},
+						deletepic: {image: delete_imageview.backgroundImage},
+						properties:{title:devices.name,itemID:devices.name,searchableText:devices.platform+devices.os_ver+devices.model+devices.name,height:140}
+						});
+					
+					listSection.setItems(listDataSet);
+					sections.push(listSection);
+					listView.setSections(sections);
+		        	
+		        	//var edit_imageview = Ti.UI.createImageView({top:30,left:'90%',width:20,height:20,backgroundImage:'/images/edit.png'});
+		        	    		        	
+		            //Change the header of the table view	
+		        	listSection.headerTitle=JSONdata.devices.length+" device/s found";	
+		        }   
+		        // get_device_tbl_view.data=tabledata;
+		        toast.show_toast("Found "+JSONdata.devices.length+" device/s.",Ti.UI.NOTIFICATION_DURATION_SHORT);
+		        
+		    },
+		    onerror: function onError() {
+		        alert("Errored: " + this.status + ": " + this.responseText);
+		    }
+		});
+		
+		xhr.open("GET",links_keys.get_all_url);
+		var authstr = 'Basic ' + Ti.Utils.base64encode(links_keys.prod_key);
+		xhr.setRequestHeader("Authorization", authstr);
+		xhr.send();
+	}
 	
 	listView.addEventListener('itemclick',function(e){
 		var item = listSection.getItemAt(e.itemIndex);
@@ -205,15 +207,30 @@ exports.get_all_device = function(){
 		var name = a.substring(9);
 		deviceinfo.device_info(name);
 	});
-// 	
-	// get_device_tbl_view.addEventListener('longclick',function(e){
-		// Ti.API.info('******'+e.source.title);
-		// var a = e.source.title.split(',');
-		// var name = a[0].substring(9);
-		// deviceinfo.device_info(name);
-	// });
 	
-	// listView.setSections(sections);
+	//getting the windows activity for the menu item
+	var activity = win.activity;
+
+	activity.onCreateOptionsMenu = function(e){
+	  var menu = e.menu;
+	  var refresh = menu.add({
+	    title: "Refresh",
+	    itemID: refresh,
+	    icon:  "/images/refresh.png",
+	    showAsAction: Titanium.Android.SHOW_AS_ACTION_ALWAYS
+	  });
+	  
+	  refresh.addEventListener("click", function(e) {
+	  	   //Empty the list data set so that the list view can be reloaded
+			listDataSet = [];
+			//Calling get data function to get data from DB
+			getdata();
+	  });
+	};
+	
+	//Calling get data function to get data from DB & display it when the get android devices button is clicked
+	getdata();
+
 	win.add(listView);
 	win.open({modal:true});	
 };

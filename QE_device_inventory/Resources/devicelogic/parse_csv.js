@@ -1,6 +1,5 @@
 var toast = require('utils/toast');
 var links_keys = require('utils/links_keys');
-var menuitem = require('utils/menuitem');
 
 exports.parsecsv=function(){	
 	var main_parse_win = Ti.UI.createWindow({
@@ -190,9 +189,6 @@ exports.parsecsv=function(){
 			       });
 			   }		   	
 		});
-		
-	//Adding the menu items to the window
-	menuitem.showmenuitems(main_parse_win);
 		
 	main_parse_win.add(parse_button);
 	main_parse_win.add(parse_lbl);

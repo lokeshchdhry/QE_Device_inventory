@@ -3,7 +3,7 @@ var links_keys = require('utils/links_keys');
 exports.deleteall=function(){	
 	var warn_view = Ti.UI.createView({height:Ti.UI.SIZE,width:Ti.UI.SIZE});
 	var warn_lbl = Ti.UI.createLabel({text:'Confirm Delete all devices from DB ?\nThis can not be undone !!!',font:{fontWeight:"bold"},color:'red',top:10});
-	warn_view.add(warn_lbl);
+	warn_view.add(warn_lbl);	
 		
 	var optdlg = Ti.UI.createOptionDialog({androidView:warn_view, buttonNames: ['Delete','Cancel']});
 	optdlg.show();
