@@ -28,6 +28,10 @@ exports.get_ios_device = function(){
 		search.blur(); //Blur the search bar when cancel is hit on the keyboard
 	});
 	
+	get_ios_device_win.addEventListener('focus',function(){
+		search.blur(); //Blur the search bar when window is focused
+	});
+	
 	var myTemplate = {
 	    childTemplates: [
 	        {                            
@@ -78,7 +82,7 @@ exports.get_ios_device = function(){
 	            properties: {          
 	                top:30,left:'80%',width:20,height:20
 	            },
-	            //Event listener for edit 
+	            //Event listener for delete 
 	            events: {
 	                longclick: function (e) {
 	                    var item = listSection.getItemAt(e.itemIndex);

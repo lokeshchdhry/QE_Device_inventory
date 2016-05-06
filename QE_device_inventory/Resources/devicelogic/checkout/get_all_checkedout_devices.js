@@ -26,6 +26,10 @@ exports.get_checkedout_devices = function(){
 		search.blur(); //Blur the search bar when cancel is hit on the keyboard
 	});
 	
+	win.addEventListener('focus',function(){
+		search.blur(); //Blur the search bar when window is focused
+	});
+	
 	var myTemplate = {
 	    childTemplates: [
 	        {                            

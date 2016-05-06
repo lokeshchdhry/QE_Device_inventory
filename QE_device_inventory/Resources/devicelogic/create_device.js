@@ -45,10 +45,7 @@ exports.create_device = function(){
 		//alert('Make a bar code for the device with tag id: '+tagid_txtfld.value);
 		Ti.API.info(tagid_txtfld.value);
 	});
-	
-	//Hide the add button until registered text field is focussed
-	//submit.hide();
-	
+		
 	//Add function
 	 function add(){
 		var xhr = Ti.Network.createHTTPClient({	
@@ -157,7 +154,6 @@ exports.create_device = function(){
 			}		
 	});
 
-	//device_add_scr_view.add(scan_but);
 	device_add_scr_view.add(log_lbl_tagid);
 	device_add_scr_view.add(tagid_txtfld);
 	device_add_scr_view.add(log_lbl_devicetype);
