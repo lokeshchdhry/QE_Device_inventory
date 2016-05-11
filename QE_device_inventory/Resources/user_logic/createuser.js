@@ -73,13 +73,12 @@ exports.create_user = function(){
 			    first_name: fn_fld.value,
 			    last_name: ln_fld.value,
 			    password: pw_fld.value,
-			    password_confirmation: conf_pw_fld.value
+			    password_confirmation: conf_pw_fld.value,
+			    confirmation_template: 'email_confirmation_template'
 				}, function (e) {
 				    if (e.success) {
 				        var user = e.users[0];
-				        Ti.API.info('******'+admin_value);
-				        Ti.API.info('******'+user.admin);
-				        alert('Created! You are now logged in as: ' + '"'+user.username+'"');
+				        alert('Thanks for registering '+user.first_name+' '+user.last_name+'.\nYou will be receiving verification email at '+user.email);
 				        email_fld.value=fn_fld.value=ln_fld.value=pw_fld.value=conf_pw_fld.value='';
 				        create_but.show();
 				        

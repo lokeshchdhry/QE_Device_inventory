@@ -105,8 +105,6 @@ exports.device_checkout = function(){
 		scan.scanner(win_placeholder1);
 		Ti.App.addEventListener('code scanned user scan',callback1);	
 	});
-	//Ti.App.removeEventListener('code scanned user scan',callback1);
-	
 	
 	scan_but2.addEventListener('click',function(){
 		if(a[0]==undefined){
@@ -122,7 +120,6 @@ exports.device_checkout = function(){
 	//First get device info
 		var xhr = Ti.Network.createHTTPClient({
 		    onload: function onLoad() {
-		        //alert("Loaded: " + this.status + ": " + this.responseText);
 		        Ti.API.info("Loaded: " + this.status + ": " + this.responseText);
 		        
 		        var json_resp = this.responseText;
@@ -130,9 +127,8 @@ exports.device_checkout = function(){
 		        Ti.API.info(JSONdata.devices.length);
 		        if(JSONdata.devices.length==0){
 		        	Ti.API.info(tagid+' does not exist****************');
-		        	toast.show_toast('Device does not exists in DB.',Ti.UI.NOTIFICATION_DURATION_SHORT);
+		        	toast.show_toast('You can not checkout this device as a device with tag ID '+tagid+' does not exists in DB.',Ti.UI.NOTIFICATION_DURATION_LONG);
 		        	Ti.App.removeEventListener('code scanned device info',callback2);
-		        	//scan_done_tick2.show();
 		        }
 		        else{
 		        	//If it exists in DB
@@ -163,7 +159,6 @@ exports.device_checkout = function(){
 		        		if(devices.checkedout=='true'){
 		        			toast.show_toast('You can not checkout this device as it is already checked out.',Ti.UI.NOTIFICATION_DURATION_SHORT);
 		        			Ti.App.removeEventListener('code scanned device info',callback2);
-		        			//scan_done_tick2.show();
 		        		}
 		        		//If the device is not checked out then do this
 		        		else{
@@ -174,9 +169,10 @@ exports.device_checkout = function(){
 		        			//Call update device function
 		        			update_device(DBID,update_name,update_platform,update_os_ver,update_make,update_model,update_serial_number,update_IMEI,update_phone_no,update_notes,update_network,update_arch,update_registered,update_inventoried,update_devicetype,update_tag_id,checked_out,user,checkout_date,email,update_checked_in,update_checkedin_on);
 		        			//Send checkout email
-		        			checkout_email(email,user,update_name,update_model,update_platform,update_os_ver);
+		        			checkout_email('checkout_template',email,user,update_name,update_model,update_platform,update_os_ver);
+		        			//Send checkout email to Administrator
+		        			checkout_email('checkout_template_admin',links_keys.admin_email,links_keys.admin_name,update_name,update_model,update_platform,update_os_ver);
 		        			Ti.App.removeEventListener('code scanned device info',callback2);
-		        			//scan_done_tick2.show();
 		        		}
 		        	}    
 		        }
@@ -232,9 +228,9 @@ exports.device_checkout = function(){
 		}));
 	}
 	
-	function checkout_email(email,user,devicename,device,running_platform,device_os_ver){
+	function checkout_email(template,email,user,devicename,device,running_platform,device_os_ver){
 		Cloud.Emails.send({
-		    template: 'checkout_template',
+		    template: template,
 		    recipients: email,
 		    first_name: user,
 		    device_name : devicename,

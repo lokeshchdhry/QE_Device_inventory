@@ -4,7 +4,6 @@ var deviceinfo = require('devicelogic/device_info');
 
 exports.get_checkedout_devices = function(){	
 	var win = Ti.UI.createWindow({title:"Checked Out Devices",backgroundImage:'main_bg.jpg'});
-	var tabledata = [];
 	
 	//Search bar for the table view
 	var search = Titanium.UI.createSearchBar({
@@ -24,6 +23,10 @@ exports.get_checkedout_devices = function(){
 		
 	search.addEventListener('cancel', function(e){
 		search.blur(); //Blur the search bar when cancel is hit on the keyboard
+	});
+	
+	win.addEventListener('focus',function(){
+		search.blur(); //Blur the search bar when window is focused
 	});
 	
 	var myTemplate = {

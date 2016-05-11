@@ -18,7 +18,6 @@ exports.get_all_device = function(){
 	
 	search.addEventListener('change', function(e){
 		e.value; // search string as user types
-		//listView.searchText = e.value;
 	});
 		
 	search.addEventListener('return', function(e){
@@ -27,6 +26,10 @@ exports.get_all_device = function(){
 		
 	search.addEventListener('cancel', function(e){
 		search.blur(); //Blur the search bar when cancel is hit on the keyboard
+	});
+	
+	win.addEventListener('focus',function(){
+		search.blur(); //Blur the search bar when window is focused
 	});
 	
 	var myTemplate = {
@@ -95,7 +98,7 @@ exports.get_all_device = function(){
 	            properties: {          
 	                top:30,left:'90%',width:20,height:20
 	            },
-	            //Event listener for edit 
+	            //Event listener for delete
 	            events: {
 	                longclick: function (e) {
 	                    var item = listSection.getItemAt(e.itemIndex);
@@ -180,13 +183,10 @@ exports.get_all_device = function(){
 					listSection.setItems(listDataSet);
 					sections.push(listSection);
 					listView.setSections(sections);
-		        	
-		        	//var edit_imageview = Ti.UI.createImageView({top:30,left:'90%',width:20,height:20,backgroundImage:'/images/edit.png'});
 		        	    		        	
 		            //Change the header of the table view	
 		        	listSection.headerTitle=JSONdata.devices.length+" device/s found";	
 		        }   
-		        // get_device_tbl_view.data=tabledata;
 		        toast.show_toast("Found "+JSONdata.devices.length+" device/s.",Ti.UI.NOTIFICATION_DURATION_SHORT);
 		        
 		    },

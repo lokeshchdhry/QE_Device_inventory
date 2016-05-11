@@ -5,10 +5,10 @@ var create_user = require('user_logic/createuser');
 var toast = require('utils/toast');
 var nwstatus = require('utils/nw_status');
 var logout = require('user_logic/logout');
+var reset_pw = require('user_logic/reset_pw');
+var resendconf = require('user_logic/conf_email');
 
-exports.admin_login = function(){
-	//nwstatus.nw_status();
-	
+exports.admin_login = function(){	
 	var main_login_win = Ti.UI.createWindow({title:'Admin Login',layout:'vertical',backgroundImage:'main_bg.jpg'});
 	var login_lbl = Ti.UI.createLabel({text:'Please enter your details to login :',top:20,font:{fontWeight:"bold"}});
 	var username_lbl = Ti.UI.createLabel({text:'Username:',top:20});
@@ -16,9 +16,9 @@ exports.admin_login = function(){
 	var password_lbl = Ti.UI.createLabel({text:'Password:',top:20});
 	var password_txt = Ti.UI.createTextField({width:200,top:10,passwordMask:true});
 	var login_img = Ti.UI.createImageView({top:30,width:50,height:50,image:'/images/login.png'});
-	//var create_usr_img = Ti.UI.createImageView({top:30,height:50,width:50,image:'/images/register.png'});
 	var login_but_lbl = Ti.UI.createLabel({text:'Login',font:{fontSize:13,fontWeight:"bold"}});
-	var info_lbl = Ti.UI.createLabel({left:120,font:{fontSize:8},text:'Username will be your appcelerator email address\nForgot password?                              Contact admin',top:160});	
+	var forgot_pw_lbl = Ti.UI.createLabel({left:160,font:{fontSize:12},text:'Forgot password ?',top:160});
+	var conf_email_lbl = Ti.UI.createLabel({left:140,font:{fontSize:12},text:'Resend Confirmation Email',top:10});	
 	var fields = [ username_txt, password_txt ];
 
 	
@@ -75,6 +75,14 @@ exports.admin_login = function(){
         fields[i].addEventListener('return', submitForm);
     }
     
+    forgot_pw_lbl.addEventListener('click',function(){
+    	reset_pw.reset_pw();
+    });
+    
+    conf_email_lbl.addEventListener('click',function(){
+    	resendconf.resend_conf_email();
+    });
+    
     //Android back listener to close the main login win & open the non admin admin page if the user decides to go back from the login page
     main_login_win.addEventListener('androidback',function(){
     	landing_pg_nonadmin.non_admin_landing();
@@ -89,7 +97,7 @@ exports.admin_login = function(){
 	main_login_win.add(password_txt);
 	main_login_win.add(login_img);
 	main_login_win.add(login_but_lbl);
-	//main_login_win.add(create_usr_img);
-	main_login_win.add(info_lbl);
+	main_login_win.add(forgot_pw_lbl);
+	main_login_win.add(conf_email_lbl);
 	main_login_win.open();
 };

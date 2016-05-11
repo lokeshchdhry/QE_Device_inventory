@@ -1,8 +1,6 @@
 var links_keys = require('utils/links_keys');
 
 exports.device_info=function(devicename){
-	Ti.API.info('name is '+devicename);
-	//var device_info_win = Ti.UI.createWindow({title:'Device: '+devicename,modal:true, height:'350',width:300,backgroundColor:'#808080'});
 	var device_info_win = Ti.UI.createWindow({modal:true,backgroundColor:'transparent'});
 	var view = Ti.UI.createView({height:450,width:350,backgroundColor:'#808080',borderColor:'white',borderRadius:10,elevation:60});
 	var ok_but = Ti.UI.createButton({title:'OK',bottom:0,right:0,width:60});
