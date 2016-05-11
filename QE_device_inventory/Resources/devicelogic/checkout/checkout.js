@@ -127,7 +127,7 @@ exports.device_checkout = function(){
 		        Ti.API.info(JSONdata.devices.length);
 		        if(JSONdata.devices.length==0){
 		        	Ti.API.info(tagid+' does not exist****************');
-		        	toast.show_toast('Device does not exists in DB.',Ti.UI.NOTIFICATION_DURATION_SHORT);
+		        	toast.show_toast('You can not checkout this device as a device with tag ID '+tagid+' does not exists in DB.',Ti.UI.NOTIFICATION_DURATION_LONG);
 		        	Ti.App.removeEventListener('code scanned device info',callback2);
 		        }
 		        else{
@@ -171,7 +171,7 @@ exports.device_checkout = function(){
 		        			//Send checkout email
 		        			checkout_email('checkout_template',email,user,update_name,update_model,update_platform,update_os_ver);
 		        			//Send checkout email to Administrator
-		        			checkout_email('checkout_template_admin','lchoudhary@appcelerator.com','Lokesh',update_name,update_model,update_platform,update_os_ver);
+		        			checkout_email('checkout_template_admin',links_keys.admin_email,links_keys.admin_name,update_name,update_model,update_platform,update_os_ver);
 		        			Ti.App.removeEventListener('code scanned device info',callback2);
 		        		}
 		        	}    

@@ -4,7 +4,6 @@ var deviceinfo = require('devicelogic/device_info');
 
 exports.get_checkedout_devices = function(){	
 	var win = Ti.UI.createWindow({title:"Checked Out Devices",backgroundImage:'main_bg.jpg'});
-	var tabledata = [];
 	
 	//Search bar for the table view
 	var search = Titanium.UI.createSearchBar({

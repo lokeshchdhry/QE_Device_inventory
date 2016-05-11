@@ -33,8 +33,7 @@ exports.create_device = function(){
 	var notes_txtfld = Ti.UI.createTextField({top:0,width:200});
 	var log_lbl_registered = Ti.UI.createLabel({top:10,text:'Registered(Date): '});
 	var registered_txtfld = Ti.UI.createTextField({top:0,width:200});
-	var submit = Ti.UI.createButton({top:10,title:'Add'});	
-
+	var submit = Ti.UI.createButton({top:10,title:'Add'});
 	
 	function randomNo(min, max){
 		return Math.round(Math.random() * (max - min) + min);

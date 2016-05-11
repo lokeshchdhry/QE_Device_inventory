@@ -35,8 +35,8 @@ exports.query_device = function(window){
 		search.blur(); //Blur the search bar when cancel is hit on the keyboard
 	});
 	
-	device_query_win.addEventListener('focus',function(){
-		search.blur(); //Blur the search bar when window is focused
+	results_win.addEventListener('focus',function(){
+		search.blur(); //Blur the search bar when results window is focused
 	});
 	
 	var myTemplate = {

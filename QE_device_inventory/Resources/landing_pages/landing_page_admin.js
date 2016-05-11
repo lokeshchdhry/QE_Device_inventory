@@ -1,19 +1,19 @@
 var menuitem = require('utils/menuitem');
+var non_admin_landing = require('landing_pages/landing_page_nonadmin');
+var newdevice = require('devicelogic/create_device');
+var getandroiddevice = require('devicelogic/get_android_devices');
+var getiosdevice = require('devicelogic/get_ios_devices');
+var getwindowsdevice = require('devicelogic/get_windows_devices');
+var getalldevice = require('devicelogic/get_all_devices');
+var updatedevice = require('devicelogic/update_device');
+var deletedevice = require('devicelogic/delete_logic/delete_main_pg');
+var querydevice = require('devicelogic/query_device');
+var logout = require('user_logic/logout');
+var add_device_csv = require('devicelogic/parse_csv');
+var get_all_checkedout_devices = require('devicelogic/checkout/get_all_checkedout_devices');
+var manage_users = require('user_logic/manage_users');
 
-exports.landing=function(){
-	var non_admin_landing = require('landing_pages/landing_page_nonadmin');
-	var newdevice = require('devicelogic/create_device');
-	var getandroiddevice = require('devicelogic/get_android_devices');
-	var getiosdevice = require('devicelogic/get_ios_devices');
-	var getwindowsdevice = require('devicelogic/get_windows_devices');
-	var getalldevice = require('devicelogic/get_all_devices');
-	var updatedevice = require('devicelogic/update_device');
-	var deletedevice = require('devicelogic/delete_logic/delete_main_pg');
-	var querydevice = require('devicelogic/query_device');
-	var logout = require('user_logic/logout');
-	var add_device_csv = require('devicelogic/parse_csv');
-	var get_all_checkedout_devices = require('devicelogic/checkout/get_all_checkedout_devices');
-	
+exports.landing=function(){	
 	var main_win = Ti.UI.createWindow({
 		title:"Admin Window",
 		backgroundImage:'main_bg.jpg'
@@ -99,6 +99,14 @@ exports.landing=function(){
 		width:'50%'
 	});
 	
+	var manage_users_but = Ti.UI.createButton({
+		top:370,
+		title:"Manage Users",
+		height:75,
+		right:0,
+		width:'50%'
+	});
+	
 	var logout_img = Ti.UI.createImageView({
 		bottom:20,
 		width:45,
@@ -170,6 +178,10 @@ exports.landing=function(){
 		get_all_checkedout_devices.get_checkedout_devices();
 	});
 	
+	manage_users_but.addEventListener('click',function(){
+		manage_users.manage_users();
+	});
+	
 	logout_img.addEventListener('click',function(){
 		logout.logout_user(main_win);
 		non_admin_landing.non_admin_landing();
@@ -196,6 +208,7 @@ exports.landing=function(){
 	main_win.add(get_all_device_button);
 	main_win.add(add_device_csv_but);
 	main_win.add(delete_device_button);
-	main_win.add(get_checkedout_device_but);			
+	main_win.add(get_checkedout_device_but);
+	main_win.add(manage_users_but);			
 	main_win.open();
 };

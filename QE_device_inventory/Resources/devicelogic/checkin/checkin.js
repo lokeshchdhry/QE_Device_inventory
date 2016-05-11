@@ -121,7 +121,7 @@ exports.device_checkin=function(){
 		        			//Sending check in email to user who checked out the device
 		        			checkin_email('checkin_template',update_user_email,update_checkedout_by,update_name,update_model,update_platform,update_os_ver);
 		        			//Sending check in email to administrator
-		        			checkin_email('checkin_template_admin','lchoudhary@appcelerator.com','Lokesh',update_name,update_model,update_platform,update_os_ver);
+		        			checkin_email('checkin_template_admin',links_keys.admin_email,links_keys.admin_name,update_name,update_model,update_platform,update_os_ver);
 		        			Ti.App.removeEventListener('checkin code scanned device info',callback2);
 		        		}
 		        	}    
