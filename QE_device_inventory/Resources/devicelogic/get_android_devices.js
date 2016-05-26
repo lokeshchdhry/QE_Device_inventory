@@ -6,7 +6,6 @@ var deletedevice = require('devicelogic/delete_device');
 
 exports.get_android_device = function(){
 	var get_android_device_win = Ti.UI.createWindow({title:"All Android Devices",backgroundImage:'main_bg.jpg'});
-	var tabledata = [];
 	
 	//Search bar for the table view
 	var search = Titanium.UI.createSearchBar({

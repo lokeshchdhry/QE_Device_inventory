@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+iosLaunchConfigurationAttributes/ATTR_MINIFY=false
+iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=QE_device_inventory
+iosLaunchConfigurationAttributes/ATTR_UPLOAD_DEBUG_SYMBOLS=true
+iosLaunchConfigurationAttributes/appid=com.app.qedeviceinventory
+iosLaunchConfigurationAttributes/certificate=QE Department (C64864TF2L)
+iosLaunchConfigurationAttributes/keychain=
+iosLaunchConfigurationAttributes/sdk_version=9.3
+iosLaunchConfigurationAttributes/uuid=646b9760-b973-4aec-9ed0-61d37361a91a
