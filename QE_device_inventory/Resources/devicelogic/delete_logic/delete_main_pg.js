@@ -10,7 +10,7 @@ exports.delete_main_pg=function(){
 	});
 	
 	//Adding the menu items to the window
-	menuitem.showmenuitems(delete_main_win);
+	// menuitem.showmenuitems(delete_main_win);
 	
 	delete_main_win.add(all_delete_but);	
 	delete_main_win.open();
